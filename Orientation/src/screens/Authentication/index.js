@@ -6,19 +6,27 @@ import { useNavigation } from '@react-navigation/native';
 
 import styled from 'styled-components';
 
-
-const Login = () => {
+const Authentication = () => {
     const navigation = useNavigation();
 
     return (
         <Container>
 
-            <TouchableOpacity onPress={() => navigation.navigate('BottomNavigator', { screen: 'Home' })}>
-                <Text>Login</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text>Back</Text>
             </TouchableOpacity>
 
             <View>
-                <Subtitle>Username or Email Adress</Subtitle>
+                <Subtitle>Email Adress</Subtitle>
+                <Input
+                    label='Email'
+                    name='email'
+                    id='email'
+                    type='email'
+                    rsecureTextEntry={false}
+                />
+
+                <Subtitle>Username</Subtitle>
                 <Input
                     label='Username'
                     name='username'
@@ -34,25 +42,25 @@ const Login = () => {
                     id='password'
                     type='password'
                     secureTextEntry={true}
+                    placeholder='6+ characters'
                 />
 
+                <TextWarning>Creating an account means you're ok with our Terms of Service,
+                    Privacy Policy, and our default Notification Settings.
+                </TextWarning>
+
                 <ButtonContainer>
-                    <ButtonText>Sign in</ButtonText>
+                    <ButtonText>Create Account</ButtonText>
                 </ButtonContainer>
             </View>
-
-            <TouchableOpacity onPress={() => navigation.navigate('Authentication')}>
-                <SignIn>Not a member? <SignInColor>Sign up now</SignInColor></SignIn>
-            </TouchableOpacity>
-
-        </Container >
+        </Container>
     );
 }
 
 const Container = styled.View`
-    background-color: white;
-    padding: 0 6% 2.5% 6%;
-    height: 100%;
+  background-color: white;
+  padding: 0 6% 2.5% 6%;
+  height: 100%;
 `
 const Subtitle = styled.TextInput`
     font-size: 16px;
@@ -65,6 +73,12 @@ const Input = styled.TextInput`
     margin: 4% 0 8% 0;
     padding-left: 6%;
     height: 50px;
+`
+const TextWarning = styled.Text`
+    text-align: justify;
+    font-size: 14px;
+    padding: 4%;
+    /* color: white; */
 `
 const ButtonContainer = styled.TouchableOpacity`
     background-color: green;
@@ -79,15 +93,5 @@ const ButtonText = styled.Text`
     font-size: 16px;
     color: white;
 `
-const SignIn = styled.Text`
-    text-align: center;
-    margin-top: 18px;
-    color: black;
-`
-const SignInColor = styled.Text`
-    color: green;
-`
 
-
-
-export default Login;
+export default Authentication;
