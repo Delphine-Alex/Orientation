@@ -19,7 +19,7 @@ const Home = () => {
                 <Text>Baliser la course</Text>
             </ButtonContainer>
 
-            <ButtonContainer>
+            <ButtonContainer onPress={() => navigation.navigate('RaceList')}>
                 <Text>Courir</Text>
             </ButtonContainer>
 
