@@ -4,8 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Authentication from '../screens/Authentication';
-import BottomNavigator from './bottomNavigator';
+// import BottomNavigator from './bottomNavigator';
+import Home from '../screens/Home';
 import Login from '../screens/Login';
+import Race from '../screens/Race';
+import Setting from '../screens/Setting';
 
 const Routes = (props) => {
   const RootStack = createStackNavigator();
@@ -15,7 +18,10 @@ const Routes = (props) => {
       <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'Login'}>
         <RootStack.Screen name="Login" component={Login} />
         <RootStack.Screen name="Authentication" component={Authentication} />
-        <RootStack.Screen name="BottomNavigator" component={BottomNavigator} />
+        <RootStack.Screen name="Home" component={Home} />
+        <RootStack.Screen name="Race" component={Race} />
+        <RootStack.Screen name="Setting" component={Setting} />
+        {/* <RootStack.Screen name="BottomNavigator" component={BottomNavigator} /> */}
       </RootStack.Navigator>
     </NavigationContainer>
   );

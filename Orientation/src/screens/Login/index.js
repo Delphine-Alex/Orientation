@@ -13,7 +13,7 @@ const Login = () => {
     return (
         <Container>
 
-            <TouchableOpacity onPress={() => navigation.navigate('BottomNavigator', { screen: 'Home' })}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Text>Login</Text>
             </TouchableOpacity>
 
@@ -87,7 +87,5 @@ const SignIn = styled.Text`
 const SignInColor = styled.Text`
     color: green;
 `
-
-
 
 export default Login;

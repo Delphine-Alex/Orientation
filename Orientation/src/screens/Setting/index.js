@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
 import QRCode from 'react-native-qrcode-svg';
 
 import styled from 'styled-components';
@@ -9,6 +10,8 @@ import styled from 'styled-components';
 const App = () => {
     const [input, setInput] = useState('');
     const [qrvalue, setQrvalue] = useState('');
+
+    const navigation = useNavigation();
 
     return (
         <View>
@@ -30,6 +33,10 @@ const App = () => {
                     <TouchableOpacity onPress={() => setQrvalue(input)}>
                         <Text>Generate QR Code</Text>
                     </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                        <Text>Home</Text>
+                    </TouchableOpacity>
                 </>
             ) : (
                 <>
@@ -42,6 +49,10 @@ const App = () => {
                     />
                     <TouchableOpacity onPress={() => setQrvalue(input)}>
                         <Text>Generate QR Code</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                        <Text>Home</Text>
                     </TouchableOpacity>
                 </>
             )}
