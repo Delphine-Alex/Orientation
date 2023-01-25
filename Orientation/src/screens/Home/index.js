@@ -11,21 +11,28 @@ const Home = () => {
 
     return (
         <Container>
+
+            <Title>Please follow the following steps in order. If the race is already created, you can skip the first step.</Title>
+
+
+            <SubTitle>First step</SubTitle>
             <ButtonContainer onPress={() => navigation.navigate('Race')}>
-                <Text>Create a race</Text>
+                <ButtonText>Create a race</ButtonText>
             </ButtonContainer>
 
+            <SubTitle>Second step</SubTitle>
             <ButtonContainer>
-                <Text>Baliser la course</Text>
+                <ButtonText>Baliser la course</ButtonText>
             </ButtonContainer>
 
+            <SubTitle>Third step</SubTitle>
             <ButtonContainer onPress={() => navigation.navigate('RaceList')}>
-                <Text>Courir</Text>
+                <ButtonText>Run the race</ButtonText>
             </ButtonContainer>
 
-            <ButtonContainer onPress={() => navigation.navigate('Setting')}>
+            {/* <ButtonContainer onPress={() => navigation.navigate('Setting')}>
                 <Text>QR Code</Text>
-            </ButtonContainer>
+            </ButtonContainer> */}
 
         </Container>
     );
@@ -36,10 +43,22 @@ const Container = styled.View`
     padding: 0 6% 2.5% 6%;
     height: 100%;
 `
+const Title = styled.Text`
+    padding: 25% 0% 25% 0%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+`
+const SubTitle = styled.Text`
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+`
 const ButtonContainer = styled.TouchableOpacity`
-    background-color: green;
-    border-radius: 4px;
-    margin-top: 10px;
+    background-color: #7AB986;
+    border-radius: 50px;
+    margin-bottom: 40px;
+    margin-top: 6px;
     padding: 16px;
     height: 50px;
 `

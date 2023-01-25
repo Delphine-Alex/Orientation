@@ -13,7 +13,7 @@ const Authentication = () => {
         <Container>
 
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text>Back</Text>
+                <BackButton>Back</BackButton>
             </TouchableOpacity>
 
             <View>
@@ -49,7 +49,7 @@ const Authentication = () => {
                     Privacy Policy, and our default Notification Settings.
                 </TextWarning>
 
-                <ButtonContainer>
+                <ButtonContainer onPress={() => navigation.navigate('Home')}>
                     <ButtonText>Create Account</ButtonText>
                 </ButtonContainer>
             </View>
@@ -62,6 +62,12 @@ const Container = styled.View`
   padding: 0 6% 2.5% 6%;
   height: 100%;
 `
+const BackButton = styled.Text`
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
+`
 const Subtitle = styled.TextInput`
     font-size: 16px;
     font-weight: 600;
@@ -69,8 +75,8 @@ const Subtitle = styled.TextInput`
 `
 const Input = styled.TextInput`
     background-color: lightgray;
-    border-radius: 4px;
-    margin: 4% 0 8% 0;
+    border-radius: 50px;
+    margin: 4% 0 6% 0;
     padding-left: 6%;
     height: 50px;
 `
@@ -78,11 +84,10 @@ const TextWarning = styled.Text`
     text-align: justify;
     font-size: 14px;
     padding: 4%;
-    /* color: white; */
 `
 const ButtonContainer = styled.TouchableOpacity`
-    background-color: green;
-    border-radius: 4px;
+    background-color: #7AB986;
+    border-radius: 50px;
     margin-top: 10px;
     padding: 16px;
     height: 50px;

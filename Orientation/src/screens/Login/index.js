@@ -13,9 +13,9 @@ const Login = () => {
     return (
         <Container>
 
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Text>Login</Text>
-            </TouchableOpacity>
+            <Title>Welcome to this new orienteering application. Before you start, please create an account or log in!</Title>
+
+            <SecondTitle>Log in</SecondTitle>
 
             <View>
                 <Subtitle>Username or Email Adress</Subtitle>
@@ -36,7 +36,7 @@ const Login = () => {
                     secureTextEntry={true}
                 />
 
-                <ButtonContainer>
+                <ButtonContainer onPress={() => navigation.navigate('Home')}>
                     <ButtonText>Sign in</ButtonText>
                 </ButtonContainer>
             </View>
@@ -54,6 +54,20 @@ const Container = styled.View`
     padding: 0 6% 2.5% 6%;
     height: 100%;
 `
+const Title = styled.Text`
+    padding: 6% 0% 10% 0%;
+    text-align: justify;
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+`
+const SecondTitle = styled.Text`
+    padding: 4% 0% 6% 0%;
+    text-align: justify;
+    font-weight: 600;
+    font-size: 17px;
+    color: #7AB986;
+`
 const Subtitle = styled.TextInput`
     font-size: 16px;
     font-weight: 600;
@@ -61,15 +75,15 @@ const Subtitle = styled.TextInput`
 `
 const Input = styled.TextInput`
     background-color: lightgray;
-    border-radius: 4px;
-    margin: 4% 0 8% 0;
+    border-radius: 50px;
+    margin: 4% 0 6% 0;
     padding-left: 6%;
     height: 50px;
 `
 const ButtonContainer = styled.TouchableOpacity`
-    background-color: green;
-    border-radius: 4px;
-    margin-top: 10px;
+    background-color: #7AB986;
+    border-radius: 50px;
+    margin-top: 20px;
     padding: 16px;
     height: 50px;
 `
@@ -85,7 +99,7 @@ const SignIn = styled.Text`
     color: black;
 `
 const SignInColor = styled.Text`
-    color: green;
+    color: #7AB986;
 `
 
 export default Login;
