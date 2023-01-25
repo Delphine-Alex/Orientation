@@ -1,113 +1,132 @@
-// import React, { useState } from 'react';
 
-// import { Button, Text, View, TextInput, TouchableOpacity } from 'react-native';
-
-// import { useNavigation } from '@react-navigation/native';
-
-// import styled from 'styled-components';
-
-// const Race = () => {
-//     const [name, setName] = useState({});
-//     const [tests, setTests] = useState([]);
-//     const navigation = useNavigation();
-
-//     const submitName = async (text) => {
-//         text.preventDefault();
-
-//         // const url = 'http://localhost:7234';
-//         // try {
-//         //     await axios.post(url, user);
-//         // } catch (error) {
-//         //     console.log(error)
-//         // }
-//     }
-
-//     const handleClick = () => {
-//         setTest([...tests, ])
-//     }
-
-//     return (
-//         <Container>
-//             <Text onPress={() => navigation.navigate('Home')}>Back</Text>
-
-//             <Text>Create a new race</Text>
-
-//             <View>
-//                 <TextInput
-//                     placeholder='Enter a name'
-//                     onChangeText={(text) => setName({ ...name, name: text })}
-//                 />
-
-//                 <TouchableOpacity>
-//                     <Button title='Submit' type='submit' onPress={(e) => submitName(e)} />
-//                 </TouchableOpacity>
-//             </View>
-
-//             <Button title='Add a QR Code' onPress={handleClick} />
-//             {state ? (
-//                 <Text>Test</Text>) :
-//                 ("")}
-//         </Container>
-//     );
-// }
-
-// const Container = styled.View`
-//     background-color: white;
-//     padding: 0 6% 2.5% 6%;
-//     height: 100%;
-// `
-
-// export default Race;
 
 import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+
+import { View } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
 import QRCode from 'react-native-qrcode-svg';
 
-const App = () => {
+import styled from 'styled-components';
+
+const Race = () => {
+
+    const [name, setName] = useState('');
     const [input, setInput] = useState('');
     const [qrvalue, setQrvalue] = useState('');
-    const [qrComponents, setQrComponents] = useState([]);
 
-    function handleClick() {
-        setQrComponents([...qrComponents,
-        <>
-            <Text>Please insert any value to generate QR code</Text>
-            <TextInput
-                onChangeText={(input) => setInput(input)}
-                placeholder="Enter any value here"
-                value={input}
-            />
-            <TouchableOpacity onPress={() => setQrvalue(input)}>
-                <Text>Generate QR Code</Text>
-            </TouchableOpacity>
-
-            {qrvalue ? (
-                <QRCode
-                    key={qrComponents.length}
-                    value={qrvalue}
-                    size={250}
-                    color="black"
-                    backgroundColor="white"
-                />
-            ) : ('')
-            }
-        </>
-        ])
-    }
+    const navigation = useNavigation();
 
     return (
-        <View>
-            <TouchableOpacity onPress={handleClick}>
-                <Text>Add QR Code</Text>
-            </TouchableOpacity>
+        <Container>
 
-            {qrComponents.map((QrComponent, index) => (
-                <View key={index}>{QrComponent}</View>
-            ))}
-        </View>
+            <BackButton onPress={() => navigation.navigate('Home')}>Back</BackButton>
+
+            <Title>Create a new race</Title>
+
+            <View>
+                <SubTitle>First step: entrer a name for the race</SubTitle>
+                <Input
+                    placeholder='Enter a name'
+                    onChangeText={(text) => setName({ ...name, name: text })}
+                />
+            </View>
+
+            <SubTitle>Second step: add QR Code</SubTitle>
+
+            {qrvalue ? (
+                <>
+                    <TextCode>Please insert any value to generate QR code</TextCode>
+
+                    <Box>
+                        <QRCode
+                            value={qrvalue}
+                            size={200}
+                            color="black"
+                            backgroundColor="white"
+                        />
+                    </Box>
+
+                    <Input
+                        onChangeText={(input) => setInput(input)}
+                        placeholder="Enter Any Value here"
+                        value={input}
+                    />
+                    <GenerateButton onPress={() => setQrvalue(input)}>
+                        <ButtonText>Generate QR Code</ButtonText>
+                    </GenerateButton>
+                </>
+            ) : (
+                <>
+                    <TextCode>Please insert any value to generate QR code</TextCode>
+
+                    <Input
+                        onChangeText={(input) => setInput(input)}
+                        placeholder="Enter Any Value here"
+                        value={input}
+                    />
+                    <GenerateButton onPress={() => setQrvalue(input)}>
+                        <ButtonText>Generate QR Code</ButtonText>
+                    </GenerateButton>
+
+                </>
+            )}
+
+        </Container>
     );
 };
 
-export default App;
+const Container = styled.View`
+    background-color: white;
+    padding: 0 6% 2.5% 6%;
+    height: 100%;
+`
+const Box = styled.View`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 6% 0% 6% 0%;
+`
+const BackButton = styled.Text`
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
+`
+const Title = styled.Text`
+    margin-bottom: 20px;
+    color: #7AB986;
+    font-weight: bold;
+    font-size: 16px;
+`
+const SubTitle = styled.Text`
+    color: black;
+    font-weight: bold;
+    font-size: 14px;
+`
+const Input = styled.TextInput`
+    background-color: lightgray;
+    border-radius: 50px;
+    margin: 4% 0 6% 0;
+    padding-left: 6%;
+    height: 50px;
+`
+const TextCode = styled.Text`
+    margin-top: 20px;
+`
+const GenerateButton = styled.TouchableOpacity`
+    background-color: #7AB986;
+    border-radius: 50px;
+`
+const ButtonText = styled.Text`
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+`
+
+export default Race;
+
 
 
