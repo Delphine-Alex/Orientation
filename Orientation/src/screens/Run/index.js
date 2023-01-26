@@ -1,18 +1,29 @@
-import React
-  // , { useEffect, useState } 
-  from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 
-import { Button, View } from "react-native";
+import { View } from "react-native";
 
 import { useNavigation } from '@react-navigation/native';
-
-import RaceList from "../../component/RaceList";
 
 import styled from "styled-components";
 
 
 const Run = () => {
   const navigation = useNavigation();
+
+  const [races, setRaces] = useState([]);
+
+  useEffect(() => {
+    const getRaces = async () => {
+      try {
+        const result = await axios.get('https://archilogllele.azurewebsites.net/api/Race')
+        setRaces(result.data);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getRaces()
+  }, []);
 
   return (
     < Container >
@@ -21,9 +32,27 @@ const Run = () => {
 
       <Title>Please select a race</Title>
 
-      <ButtonSend onPress={() => navigation.navigate('StartRace')}>
-        <RaceList />
-      </ButtonSend>
+      {
+        races ? (
+          <>
+            {
+              races.map((race) => {
+                return (
+                  <ButtonSend onPress={() => navigation.navigate('StartRace', { id: race.id })}>
+                    <View key={race.id}>
+                      <ButtonSendText>{race.name}</ButtonSendText>
+                    </View>
+                  </ButtonSend>
+                )
+              })
+            }
+          </>
+        ) : (
+          <>
+            <Text> Please create a race!</Text>
+          </>
+        )
+      }
 
     </Container >
   );
@@ -53,6 +82,11 @@ const ButtonSend = styled.TouchableOpacity`
     border-radius: 50px;
     margin-bottom: 25px;
     padding: 16px;
+`
+const ButtonSendText = styled.Text`
+    text-align: center;
+    font-weight: bold;
+    color: #7AB986;
 `
 
 export default Run;

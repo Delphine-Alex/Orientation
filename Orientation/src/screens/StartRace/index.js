@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 
-import { Button, View, Text } from "react-native";
+import { Text } from "react-native";
+
+import { useNavigation } from '@react-navigation/native';
 
 import styled from "styled-components";
 
-const StartRace = () => {
+const StartRace = ({ route }) => {
+    const [race, setRace] = useState({});
+
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        const getRace = async () => {
+            try {
+                const result = await axios.get(`https://archilogllele.azurewebsites.net/api/Race/${route.params.id}`)
+                setRace(result.data);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getRace()
+    }, []);
+
     return (
         <Container>
-            <BackButton onPress={() => navigation.navigate('Home')}>Back</BackButton>
-
-            <Text>Text</Text>
+            <BackButton onPress={() => navigation.navigate('Run')}>Back</BackButton>
+            <Text>{race.name}</Text>
         </Container>
     );
 }
