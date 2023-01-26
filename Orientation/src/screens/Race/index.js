@@ -21,7 +21,7 @@ const Race = () => {
     const submitName = async (text) => {
         text.preventDefault();
 
-        const url = 'http://10.92.0.68:5170/api/Race';
+        const url = 'https://archilogllele.azurewebsites.net/api/Race';
         try {
             await axios.post(url, name);
         } catch (error) {

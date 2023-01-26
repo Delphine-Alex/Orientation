@@ -1,27 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
 
 import { Button, Text, TouchableOpacity, View } from "react-native";
 
 import { useNavigation } from '@react-navigation/native';
 
+import RaceList from "../../component/RaceList";
+
 import styled from 'styled-components';
 
-const RaceList = () => {
-  const [races, setRaces] = useState([]);
+const Preparation = () => {
   const navigation = useNavigation();
-
-  useEffect(() => {
-    const getRaces = async () => {
-      try {
-        const result = await axios.get('http://10.92.0.68:5170/api/Race')
-        setRaces(result.data);
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getRaces()
-  }, []);
 
   return (
     <Container>
@@ -30,23 +18,9 @@ const RaceList = () => {
 
       <Title>Please select a race</Title>
 
-      {races ? (
-        <>
-          {
-            races.map((race) => {
-              return (
-                <ButtonSend key={race.id}>
-                  <ButtonSendText>{race.name}</ButtonSendText>
-                </ButtonSend>
-              )
-            })
-          }
-        </>
-      ) : (
-        <>
-          <Text> Please create a race!</Text>
-        </>
-      )}
+      <ButtonSend>
+        <RaceList />
+      </ButtonSend>
 
     </Container >
   )
@@ -77,10 +51,5 @@ const ButtonSend = styled.TouchableOpacity`
     margin-bottom: 25px;
     padding: 16px;
 `
-const ButtonSendText = styled.Text`
-    text-align: center;
-    font-weight: bold;
-    color: #7AB986;
-`
 
-export default RaceList;
+export default Preparation;
