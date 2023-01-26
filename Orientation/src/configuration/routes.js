@@ -11,6 +11,7 @@ import Race from '../screens/Race';
 import Setting from '../screens/Setting';
 import RaceList from '../screens/RaceList';
 import Run from '../screens/Run';
+import SetupRace from '../screens/SetupRace';
 
 const Routes = (props) => {
   const RootStack = createStackNavigator();
@@ -25,6 +26,7 @@ const Routes = (props) => {
         <RootStack.Screen name="Setting" component={Setting} />
         <RootStack.Screen name="RaceList" component={RaceList} />
         <RootStack.Screen name="Run" component={Run} />
+        <RootStack.Screen name="SetupRace" component={SetupRace} />
         {/* <RootStack.Screen name="BottomNavigator" component={BottomNavigator} /> */}
       </RootStack.Navigator>
     </NavigationContainer>
