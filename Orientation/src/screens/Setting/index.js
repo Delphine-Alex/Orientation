@@ -1,3 +1,12 @@
+import React, { useState } from 'react';
+
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+import QRCode from 'react-native-qrcode-svg';
+
+import styled from 'styled-components';
+
 const App = () => {
     const [input, setInput] = useState('');
     const [qrvalue, setQrvalue] = useState('');
