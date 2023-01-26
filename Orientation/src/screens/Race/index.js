@@ -6,6 +6,8 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import QRCode from 'react-native-qrcode-svg';
 
+import Share from 'react-native-share';
+
 import styled from 'styled-components';
 
 const Race = () => {
@@ -18,7 +20,6 @@ const Race = () => {
 
     const submitName = async (text) => {
         text.preventDefault();
-        console.log('name', name)
 
         const url = 'http://10.92.0.68:5170/api/Race';
         try {
@@ -26,6 +27,16 @@ const Race = () => {
         } catch (error) {
             console.log('error', error)
         }
+    }
+
+    const openShareScreen = () => {
+        Share.open(qrvalue)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                err && console.log(err);
+            });
     }
 
     return (
@@ -91,6 +102,10 @@ const Race = () => {
                 </>
             )}
 
+            <ButtonSend>
+                <ButtonSendText onPress={openShareScreen}>Send QR Codes by mail</ButtonSendText>
+            </ButtonSend>
+
         </Container>
     );
 };
@@ -117,7 +132,7 @@ const ButtonSend = styled.TouchableOpacity`
     background-color: white;
     border-radius: 50px;
     margin-bottom: 25px;
-    padding: 16px;
+    padding: 14px;
 `
 const ButtonSendText = styled.Text`
     text-align: center;

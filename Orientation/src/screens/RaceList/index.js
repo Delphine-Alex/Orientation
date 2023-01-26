@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
-// import { Button, Text, TouchableOpacity, View } from "react-native";
+import { Button, Text, TouchableOpacity, View } from "react-native";
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -30,15 +30,25 @@ const RaceList = () => {
 
       <Title>Please select a race</Title>
 
-      {races.map((race, item) => {
-        return (
-          <ButtonSend key={item.id}>
-            <ButtonSendText>{race.name}</ButtonSendText>
-          </ButtonSend>
-        )
-      })}
+      {races ? (
+        <>
+          {
+            races.map((race) => {
+              return (
+                <ButtonSend key={race.id}>
+                  <ButtonSendText>{race.name}</ButtonSendText>
+                </ButtonSend>
+              )
+            })
+          }
+        </>
+      ) : (
+        <>
+          <Text> Please create a race!</Text>
+        </>
+      )}
 
-    </Container>
+    </Container >
   )
 }
 

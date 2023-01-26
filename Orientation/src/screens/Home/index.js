@@ -14,7 +14,6 @@ const Home = () => {
 
             <Title>Please follow the following steps in order. If the race is already created, you can skip the first step.</Title>
 
-
             <SubTitle>First step</SubTitle>
             <ButtonContainer onPress={() => navigation.navigate('Race')}>
                 <ButtonText>Create a race</ButtonText>
@@ -26,13 +25,13 @@ const Home = () => {
             </ButtonContainer>
 
             <SubTitle>Third step</SubTitle>
-            <ButtonContainer onPress={() => navigation.navigate('RaceList')}>
+            <ButtonContainer>
                 <ButtonText>Run the race</ButtonText>
             </ButtonContainer>
 
-            {/* <ButtonContainer onPress={() => navigation.navigate('Setting')}>
-                <Text>QR Code</Text>
-            </ButtonContainer> */}
+            <ButtonContainer onPress={() => navigation.navigate('Setting')}>
+                <Text>QR Code not working</Text>
+            </ButtonContainer>
 
         </Container>
     );
