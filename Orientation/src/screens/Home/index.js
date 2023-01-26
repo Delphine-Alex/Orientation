@@ -21,8 +21,8 @@ const Home = () => {
             </ButtonContainer>
 
             <SubTitle>Second step</SubTitle>
-            <ButtonContainer>
-                <ButtonText>Baliser la course</ButtonText>
+            <ButtonContainer onPress={() => navigation.navigate('RaceList')}>
+                <ButtonText>Race preparation</ButtonText>
             </ButtonContainer>
 
             <SubTitle>Third step</SubTitle>

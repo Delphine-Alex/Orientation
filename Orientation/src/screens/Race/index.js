@@ -1,6 +1,5 @@
-
-
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import { View } from 'react-native';
 
@@ -11,11 +10,23 @@ import styled from 'styled-components';
 
 const Race = () => {
 
-    const [name, setName] = useState('');
+    const [name, setName] = useState({});
     const [input, setInput] = useState('');
     const [qrvalue, setQrvalue] = useState('');
 
     const navigation = useNavigation();
+
+    const submitName = async (text) => {
+        text.preventDefault();
+        console.log('name', name)
+
+        const url = 'http://10.92.0.68:5170/api/Race';
+        try {
+            await axios.post(url, name);
+        } catch (error) {
+            console.log('error', error)
+        }
+    }
 
     return (
         <Container>
@@ -27,9 +38,17 @@ const Race = () => {
             <View>
                 <SubTitle>First step: entrer a name for the race</SubTitle>
                 <Input
+                    label='Name'
+                    name='name'
+                    id='name'
+                    type='text'
+                    rsecureTextEntry={false}
                     placeholder='Enter a name'
                     onChangeText={(text) => setName({ ...name, name: text })}
                 />
+                <ButtonSend>
+                    <ButtonSendText onPress={(e) => submitName(e)}>Send</ButtonSendText>
+                </ButtonSend>
             </View>
 
             <SubTitle>Second step: add QR Code</SubTitle>
@@ -90,19 +109,33 @@ const Box = styled.View`
 const BackButton = styled.Text`
     margin-bottom: 25px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     color: black;
+`
+const ButtonSend = styled.TouchableOpacity`
+    border: 2px solid #7AB986;
+    background-color: white;
+    border-radius: 50px;
+    margin-bottom: 25px;
+    padding: 16px;
+`
+const ButtonSendText = styled.Text`
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: #7AB986;
 `
 const Title = styled.Text`
     margin-bottom: 20px;
-    color: #7AB986;
     font-weight: bold;
     font-size: 16px;
+    color: #7AB986;
 `
 const SubTitle = styled.Text`
     color: black;
     font-weight: bold;
     font-size: 14px;
+    margin-bottom: 10px;
 `
 const Input = styled.TextInput`
     background-color: lightgray;
@@ -112,7 +145,7 @@ const Input = styled.TextInput`
     height: 50px;
 `
 const TextCode = styled.Text`
-    margin-top: 20px;
+    margin-top: 10px;
 `
 const GenerateButton = styled.TouchableOpacity`
     background-color: #7AB986;
