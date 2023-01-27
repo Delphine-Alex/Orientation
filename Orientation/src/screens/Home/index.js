@@ -20,17 +20,13 @@ const Home = () => {
             </ButtonContainer>
 
             <SubTitle>Second step</SubTitle>
-            <ButtonContainer onPress={() => navigation.navigate('RaceList')}>
+            <ButtonContainer onPress={() => navigation.navigate('Preparation')}>
                 <ButtonText>Race preparation</ButtonText>
             </ButtonContainer>
 
             <SubTitle>Third step</SubTitle>
-            <ButtonContainer>
+            <ButtonContainer onPress={() => navigation.navigate('Run')}>
                 <ButtonText>Run the race</ButtonText>
-            </ButtonContainer>
-
-            <ButtonContainer onPress={() => navigation.navigate('Setting')}>
-                <Text>QR Code not working</Text>
             </ButtonContainer>
 
         </Container>

@@ -1,112 +1,120 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import QRCode from 'react-native-qrcode-svg';
-
-import Share from 'react-native-share';
 
 import styled from 'styled-components';
 
 const Race = () => {
 
     const [name, setName] = useState({});
+    const [IdRace, setIdRace] = useState({});
     const [input, setInput] = useState('');
     const [qrvalue, setQrvalue] = useState('');
 
+    const [qrComponents, setQrComponents] = useState([]);
+
     const navigation = useNavigation();
+
+    const handleClick = () => {
+        setQrComponents([...qrComponents, input]);
+        setQrvalue('');
+    }
 
     const submitName = async (text) => {
         text.preventDefault();
 
-        const url = 'http://10.92.0.68:5170/api/Race';
+        const url = 'https://archilogllele.azurewebsites.net/api/Race';
         try {
-            await axios.post(url, name);
+            const result = await axios.post(url, name);
+            setIdRace(result.data.id)
         } catch (error) {
             console.log('error', error)
         }
     }
 
-    const openShareScreen = () => {
-        Share.open(qrvalue)
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                err && console.log(err);
-            });
+    const sumbitTag = async () => {
+        const url = 'https://archilogllele.azurewebsites.net/api/Tag';
+        for (let index = 0; index < qrComponents.length; index++) {
+            const toPost = { idRace: IdRace, qrcodeName: qrComponents[index] }
+            try {
+                await axios.post(url, toPost);
+                navigation.navigate('Home');
+            } catch (error) {
+                console.log('error', error)
+            }
+        }
+
     }
 
     return (
         <Container>
+            <ScrollView>
 
-            <BackButton onPress={() => navigation.navigate('Home')}>Back</BackButton>
+                <BackButton onPress={() => navigation.navigate('Home')}>Back</BackButton>
 
-            <Title>Create a new race</Title>
+                <Title>Create a new race</Title>
 
-            <View>
-                <SubTitle>First step: entrer a name for the race</SubTitle>
+                <View>
+                    <SubTitle>First step: entrer a name for the race</SubTitle>
+                    <Input
+                        label='Name'
+                        name='name'
+                        id='name'
+                        type='text'
+                        rsecureTextEntry={false}
+                        placeholder='Enter a name'
+                        onChangeText={(text) => setName({ ...name, name: text })}
+                    />
+                    <ButtonSend>
+                        <ButtonSendText onPress={(e) => submitName(e)}>Send</ButtonSendText>
+                    </ButtonSend>
+                </View>
+
+                <SubTitle>Second step: add QR Code</SubTitle>
+
+
+                <TextCode>Please insert any value to generate QR code</TextCode>
+
                 <Input
-                    label='Name'
-                    name='name'
-                    id='name'
-                    type='text'
-                    rsecureTextEntry={false}
-                    placeholder='Enter a name'
-                    onChangeText={(text) => setName({ ...name, name: text })}
+                    onChangeText={(input) => setInput(input)}
+                    placeholder="Enter Any Value here"
+                    value={input}
                 />
-                <ButtonSend>
-                    <ButtonSendText onPress={(e) => submitName(e)}>Send</ButtonSendText>
+
+                <ButtonSend onPress={handleClick}>
+                    <ButtonSendText>Add more QR Code</ButtonSendText>
                 </ButtonSend>
-            </View>
 
-            <SubTitle>Second step: add QR Code</SubTitle>
+                {qrComponents.map((QrComponent) => (
+                    <View>
+                        <QRCodeText>{QrComponent}</QRCodeText>
+                        <Box>
+                            {qrvalue ? (
+                                <QRCode
+                                    value={QrComponent}
+                                    size={250}
+                                    color="black"
+                                    backgroundColor="white"
+                                />
+                            ) : ('')}
+                        </Box>
+                    </View>
+                ))}
 
-            {qrvalue ? (
-                <>
-                    <TextCode>Please insert any value to generate QR code</TextCode>
+                <GenerateButton onPress={() => setQrvalue(input)}>
+                    <ButtonText>Generate QR Code</ButtonText>
+                </GenerateButton>
 
-                    <Box>
-                        <QRCode
-                            value={qrvalue}
-                            size={200}
-                            color="black"
-                            backgroundColor="white"
-                        />
-                    </Box>
+                <ButtonSend onPress={(e) => sumbitTag(e)}>
+                    <ButtonSendText>Validate</ButtonSendText>
+                </ButtonSend>
 
-                    <Input
-                        onChangeText={(input) => setInput(input)}
-                        placeholder="Enter Any Value here"
-                        value={input}
-                    />
-                    <GenerateButton onPress={() => setQrvalue(input)}>
-                        <ButtonText>Generate QR Code</ButtonText>
-                    </GenerateButton>
-                </>
-            ) : (
-                <>
-                    <TextCode>Please insert any value to generate QR code</TextCode>
-
-                    <Input
-                        onChangeText={(input) => setInput(input)}
-                        placeholder="Enter Any Value here"
-                        value={input}
-                    />
-                    <GenerateButton onPress={() => setQrvalue(input)}>
-                        <ButtonText>Generate QR Code</ButtonText>
-                    </GenerateButton>
-
-                </>
-            )}
-
-            <ButtonSend>
-                <ButtonSendText onPress={openShareScreen}>Send QR Codes by mail</ButtonSendText>
-            </ButtonSend>
-
-        </Container>
+            </ScrollView>
+        </Container >
     );
 };
 
@@ -165,6 +173,7 @@ const TextCode = styled.Text`
 const GenerateButton = styled.TouchableOpacity`
     background-color: #7AB986;
     border-radius: 50px;
+    margin-bottom: 25px;
 `
 const ButtonText = styled.Text`
     padding: 15px;
@@ -172,6 +181,12 @@ const ButtonText = styled.Text`
     font-weight: bold;
     font-size: 16px;
     color: white;
+`
+const QRCodeText = styled.Text`
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: black;
 `
 
 export default Race;

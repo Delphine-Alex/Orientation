@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
-import { Button, Text, TouchableOpacity, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 
 import { useNavigation } from '@react-navigation/native';
 
 import styled from 'styled-components';
 
-const RaceList = () => {
-  const [races, setRaces] = useState([]);
+const Preparation = () => {
   const navigation = useNavigation();
+
+  const [races, setRaces] = useState([]);
 
   useEffect(() => {
     const getRaces = async () => {
       try {
-        const result = await axios.get('http://10.92.0.68:5170/api/Race')
+        const result = await axios.get('https://archilogllele.azurewebsites.net/api/Race')
         setRaces(result.data);
+        console.log(result.data);
       } catch (error) {
         console.log(error)
       }
@@ -25,29 +27,34 @@ const RaceList = () => {
 
   return (
     <Container>
+      <ScrollView>
 
-      <BackButton onPress={() => navigation.navigate('Home')}>Back</BackButton>
+        <BackButton onPress={() => navigation.navigate('Home')}>Back</BackButton>
 
-      <Title>Please select a race</Title>
+        <Title>Please select a race</Title>
 
-      {races ? (
-        <>
-          {
-            races.map((race) => {
-              return (
-                <ButtonSend key={race.id}>
-                  <ButtonSendText>{race.name}</ButtonSendText>
-                </ButtonSend>
-              )
-            })
-          }
-        </>
-      ) : (
-        <>
-          <Text> Please create a race!</Text>
-        </>
-      )}
-
+        {
+          races ? (
+            <>
+              {
+                races.map((race, item) => {
+                  return (
+                    <ButtonSend onPress={() => navigation.navigate('PreRun', { ...race })}>
+                      <View key={item.id}>
+                        <ButtonSendText>{race.name}</ButtonSendText>
+                      </View>
+                    </ButtonSend>
+                  )
+                })
+              }
+            </>
+          ) : (
+            <>
+              <Text> Please create a race!</Text>
+            </>
+          )
+        }
+      </ScrollView>
     </Container >
   )
 }
@@ -83,4 +90,4 @@ const ButtonSendText = styled.Text`
     color: #7AB986;
 `
 
-export default RaceList;
+export default Preparation;
