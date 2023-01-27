@@ -11,6 +11,7 @@ import styled from 'styled-components';
 const Race = () => {
 
     const [name, setName] = useState({});
+    const [IdRace, setIdRace] = useState({});
     const [input, setInput] = useState('');
     const [qrvalue, setQrvalue] = useState('');
 
@@ -28,7 +29,8 @@ const Race = () => {
 
         const url = 'https://archilogllele.azurewebsites.net/api/Race';
         try {
-            await axios.post(url, name);
+            const result = await axios.post(url, name);
+            setIdRace(result.data.id)
         } catch (error) {
             console.log('error', error)
         }
@@ -36,11 +38,16 @@ const Race = () => {
 
     const sumbitTag = async () => {
         const url = 'https://archilogllele.azurewebsites.net/api/Tag';
-        try {
-            await axios.post(url, qrComponents);
-        } catch (error) {
-            console.log('error', error)
+        for (let index = 0; index < qrComponents.length; index++) {
+            const toPost = { idRace: IdRace, qrcodeName: qrComponents[index] }
+            try {
+                await axios.post(url, toPost);
+                navigation.navigate('Home');
+            } catch (error) {
+                console.log('error', error)
+            }
         }
+
     }
 
     return (
@@ -102,7 +109,7 @@ const Race = () => {
                     <ButtonText>Generate QR Code</ButtonText>
                 </GenerateButton>
 
-                <ButtonSend onPress={() => sumbitTag()}>
+                <ButtonSend onPress={(e) => sumbitTag(e)}>
                     <ButtonSendText>Validate</ButtonSendText>
                 </ButtonSend>
 
