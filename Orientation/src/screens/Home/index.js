@@ -29,10 +29,6 @@ const Home = () => {
                 <ButtonText>Run the race</ButtonText>
             </ButtonContainer>
 
-            <ButtonContainer onPress={() => navigation.navigate('Setting')}>
-                <Text>QR Code not working</Text>
-            </ButtonContainer>
-
         </Container>
     );
 }

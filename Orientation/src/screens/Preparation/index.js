@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
-import { Text, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -26,33 +26,34 @@ const Preparation = () => {
 
   return (
     <Container>
+      <ScrollView>
 
-      <BackButton onPress={() => navigation.navigate('Home')}>Back</BackButton>
+        <BackButton onPress={() => navigation.navigate('Home')}>Back</BackButton>
 
-      <Title>Please select a race</Title>
+        <Title>Please select a race</Title>
 
-      {
-        races ? (
-          <>
-            {
-              races.map((race) => {
-                return (
-                  <ButtonSend onPress={() => navigation.navigate('StartRace', { id: race.id })}>
-                    <View key={race.id}>
-                      <ButtonSendText>{race.name}</ButtonSendText>
-                    </View>
-                  </ButtonSend>
-                )
-              })
-            }
-          </>
-        ) : (
-          <>
-            <Text> Please create a race!</Text>
-          </>
-        )
-      }
-
+        {
+          races ? (
+            <>
+              {
+                races.map((race) => {
+                  return (
+                    <ButtonSend onPress={() => navigation.navigate('PreRun', { id: race.id })}>
+                      <View key={race.id}>
+                        <ButtonSendText>{race.name}</ButtonSendText>
+                      </View>
+                    </ButtonSend>
+                  )
+                })
+              }
+            </>
+          ) : (
+            <>
+              <Text> Please create a race!</Text>
+            </>
+          )
+        }
+      </ScrollView>
     </Container >
   )
 }

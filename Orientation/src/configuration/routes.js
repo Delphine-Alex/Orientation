@@ -7,6 +7,7 @@ import Authentication from '../screens/Authentication';
 import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Preparation from '../screens/Preparation';
+import PreRun from '../screens/PreRun';
 import Race from '../screens/Race';
 import Run from '../screens/Run';
 import StartRace from '../screens/StartRace';
@@ -22,6 +23,7 @@ const Routes = () => {
         <RootStack.Screen name="Login" component={Login} />
         <RootStack.Screen name="Home" component={Home} />
         <RootStack.Screen name="Preparation" component={Preparation} />
+        <RootStack.Screen name="PreRun" component={PreRun} />
         <RootStack.Screen name="Race" component={Race} />
         <RootStack.Screen name="Run" component={Run} />
         <RootStack.Screen name="StartRace" component={StartRace} />
