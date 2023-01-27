@@ -77,12 +77,49 @@ import { useNavigation } from '@react-navigation/native';
 import styled from "styled-components";
 
 const PreRun = (race) => {
+    const [allTag, setAllTag] = useState([]);
+    const [selectedTag, setSelectedTag] = useState([]);
     const navigation = useNavigation();
+
+    useEffect(() => {
+        const getTag = async () => {
+            try {
+                const result = await axios.get(`https://archilogllele.azurewebsites.net/api/Tag`)
+                setAllTag(result.data)
+                const temp = []
+                console.log('race', race.route.params.id)
+                console.log('all', allTag)
+                for (let index = 0; index < allTag.length; index++) {
+                    if (allTag[index].idRace == race.route.params.id) {
+                        temp.push(allTag[index])
+                    }
+                }
+                console.log('temp', temp)
+                setSelectedTag(temp)
+                console.log('selectTags', selectedTag)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getTag();
+    }, []);
 
     return (
         <Container>
             <BackButton onPress={() => navigation.navigate('Preparation')}>Back</BackButton>
             <Text>{race && race.route.params.name}</Text>
+
+            {/* {selectedTag.map((item) => {
+                return (
+                    <View>
+                        <Text>{item.qrcodeName}</Text>
+                    </View>
+                )
+            })} */}
+
+            <Text>
+                {selectedTag.qrcodeName}
+            </Text>
         </Container>
     );
 }
