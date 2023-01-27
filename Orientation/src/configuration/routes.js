@@ -9,7 +9,6 @@ import Login from '../screens/Login';
 import Preparation from '../screens/Preparation';
 import Race from '../screens/Race';
 import Run from '../screens/Run';
-import Setting from '../screens/Setting';
 import StartRace from '../screens/StartRace';
 // import SetupRace from '../screens/SetupRace';
 
@@ -25,7 +24,6 @@ const Routes = () => {
         <RootStack.Screen name="Preparation" component={Preparation} />
         <RootStack.Screen name="Race" component={Race} />
         <RootStack.Screen name="Run" component={Run} />
-        <RootStack.Screen name="Setting" component={Setting} />
         <RootStack.Screen name="StartRace" component={StartRace} />
         {/* <RootStack.Screen name="SetupRace" component={SetupRace} /> */}
       </RootStack.Navigator>
