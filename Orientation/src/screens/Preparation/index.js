@@ -17,6 +17,7 @@ const Preparation = () => {
       try {
         const result = await axios.get('https://archilogllele.azurewebsites.net/api/Race')
         setRaces(result.data);
+        console.log(result.data);
       } catch (error) {
         console.log(error)
       }
@@ -36,10 +37,10 @@ const Preparation = () => {
           races ? (
             <>
               {
-                races.map((race) => {
+                races.map((race, item) => {
                   return (
-                    <ButtonSend onPress={() => navigation.navigate('PreRun', { id: race.id })}>
-                      <View key={race.id}>
+                    <ButtonSend onPress={() => navigation.navigate('PreRun', { ...race })}>
+                      <View key={item.id}>
                         <ButtonSendText>{race.name}</ButtonSendText>
                       </View>
                     </ButtonSend>

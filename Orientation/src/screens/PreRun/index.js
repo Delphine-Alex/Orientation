@@ -7,27 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 
 import styled from "styled-components";
 
-const PreRun = (route) => {
-    const [race, setRace] = useState({});
-
+const PreRun = (race) => {
     const navigation = useNavigation();
-
-    useEffect(() => {
-        const getRace = async () => {
-            try {
-                const result = await axios.get(`https://archilogllele.azurewebsites.net/api/Race/${route.params.id}`)
-                setRace(result.data);
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getRace()
-    }, []);
 
     return (
         <Container>
             <BackButton onPress={() => navigation.navigate('Run')}>Back</BackButton>
-            <Text>{race.name}</Text>
+            <Text>{race && race.route.params.name}</Text>
+
         </Container>
     );
 }
